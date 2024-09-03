@@ -21,6 +21,7 @@ def save_to_db(data):
     cur.execute("""
         CREATE TABLE IF NOT EXISTS satisfaction_data (
             id SERIAL PRIMARY KEY,
+            name INTEGER,
             age INTEGER,
             gender INTEGER,
             customer_type INTEGER,

@@ -1,6 +1,21 @@
 import streamlit as st
 from database import save_to_db
 
+# Título de la aplicación
+st.title('Predicción de Satisfacción del Cliente de Aerolínea G2')
+
+# Descripción
+st.write("""
+    Bienvenido a la aplicación de predicción de satisfacción del cliente.
+    Complete los siguientes campos para predecir si el cliente estará satisfecho o no.
+""")
+
+# Nombre
+name = st.text_input('Nombre', '')
+
+# Apellidos
+last_name = st.text_input('Apellidos', '')
+
 # Edad
 age = st.slider('Edad', 0, 100, 30)
 
@@ -42,6 +57,8 @@ st.write(f"Predicción de satisfacción: {'Satisfecho' if satisfaction == 1 else
 # Enviar los datos a la base de datos
 if st.button('Guardar en la base de datos'):
     data = {
+        'name': name,
+        'last_name': last_name,
         'age': age,
         'gender': gender,
         'customer_type': customer_type,
