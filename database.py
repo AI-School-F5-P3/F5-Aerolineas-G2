@@ -46,7 +46,7 @@ def save_to_db(data):
     cur.execute("""
         INSERT INTO satisfaction_data (name, last_name, age, flight_distance, inflight_wifi_service, departure_arrival_time_convenient, ease_of_online_booking, gate_location, food_and_drink, online_boarding, seat_comfort, inflight_entertainment, on_board_service, leg_room_service, baggage_handling, checkin_service, inflight_service, cleanliness, departure_delay, arrival_delay, gender, customer_type, travel_type, eco, eco_plus, business, satisfaction)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
-    """, (
+    """), (
         data['name'], data['last_name'], data['age'], data['flight_distance'],
         data['inflight_wifi_service'], data['departure_arrival_time_convenient'],
         data['ease_of_online_booking'], data['gate_location'], data['food_and_drink'],

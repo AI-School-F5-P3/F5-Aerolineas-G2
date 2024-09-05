@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from models.model import load_model, predict
 
 # Cargar el modelo al iniciar la API
-model = load_model('models/model.pkl')
+model = load_model('models/random_forest_model.pkl')
 
 # Definir la estructura de los datos de entrada
 class InputData(BaseModel):

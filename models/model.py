@@ -1,6 +1,6 @@
 import pickle
 
-def load_model(path='models/model.pkl'):
+def load_model(path='models/random_forest_model.pkl'):
     """Carga el modelo desde un archivo .pkl"""
     with open(path, 'rb') as file:
         model = pickle.load(file)
