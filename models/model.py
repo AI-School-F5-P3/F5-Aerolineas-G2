@@ -1,10 +1,11 @@
-import pickle
+import joblib
 import numpy as np
 
-def load_model(path='models/random_forest_model.pkl'):
-    """Carga el modelo desde un archivo .pkl"""
-    with open(path, 'rb') as file:
-        model = pickle.load(file)
+def load_model(path='models/random_forest_proo.pkl'):
+    """Carga el modelo desde un archivo .pkl utilizando joblib"""
+    # Cargar el modelo usando joblib
+    model = joblib.load(path)
+    
     
     # Verifica que el modelo cargado tenga el método predict
     if not hasattr(model, 'predict'):
@@ -25,4 +26,6 @@ def predict(model, input_data):
     prediction = model.predict(input_array)
     
     return prediction[0]  # Asumiendo que el modelo devuelve una lista/array con una sola predicción
+
+
 

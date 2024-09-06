@@ -33,12 +33,12 @@ def save_to_db(data):
                 cleanliness INTEGER,
                 departure_delay INTEGER,
                 arrival_delay INTEGER,
-                gender INTEGER,
-                customer_type INTEGER,
-                travel_type INTEGER,
-                eco INTEGER,
-                eco_plus INTEGER,
-                business INTEGER,
+                gender_male INTEGER,
+                customer_type_disloyal_customer INTEGER,
+                type_of_travel_personal_travel INTEGER,
+                class_eco INTEGER,
+                class_eco_plus INTEGER,
+                class_business INTEGER,
                 satisfaction VARCHAR(50)
             );
         """)
@@ -49,7 +49,8 @@ def save_to_db(data):
             departure_arrival_time_convenient, ease_of_online_booking, gate_location, food_and_drink, 
             online_boarding, seat_comfort, inflight_entertainment, on_board_service, leg_room_service, 
             baggage_handling, checkin_service, inflight_service, cleanliness, departure_delay, arrival_delay, 
-            gender, customer_type, travel_type, eco, eco_plus, business, satisfaction)
+            gender_male, customer_type_disloyal_customer, type_of_travel_personal_travel, class_eco, class_eco_plus, 
+            class_business, satisfaction)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
         """, (
             data['name'], data['last_name'], data['age'], data['flight_distance'],
@@ -58,9 +59,10 @@ def save_to_db(data):
             data['online_boarding'], data['seat_comfort'], data['inflight_entertainment'],
             data['on_board_service'], data['leg_room_service'], data['baggage_handling'],
             data['checkin_service'], data['inflight_service'], data['cleanliness'],
-            data['departure_delay'], data['arrival_delay'], data['gender'],
-            data['customer_type'], data['travel_type'], data['eco'], data['eco_plus'],
-            data['business'], data['satisfaction']
+            data['departure_delay'], data['arrival_delay'], data['gender_male'],
+            data['customer_type_disloyal_customer'], data['type_of_travel_personal_travel'],
+            data['class_eco'], data['class_eco_plus'], data['class_business'],
+            data['satisfaction']
         ))
         
         conn.commit()

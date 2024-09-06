@@ -57,18 +57,18 @@ if page == "Formulario":
     cleanliness = st.radio('Cleanliness', [0, 1, 2, 3, 4, 5])
 
     gender = st.selectbox('Género', ['Male', 'Female'])
-    gender = 1 if gender == 'Male' else 0
+    gender_male = 1 if gender == 'Male' else 0
 
     customer_type = st.selectbox('Tipo de Cliente', ['Loyal Customer', 'Disloyal Customer'])
-    customer_type = 1 if customer_type == 'Loyal Customer' else 0
+    customer_type_disloyal_customer = 1 if customer_type == 'Disloyal Customer' else 0
 
     travel_type = st.selectbox('Tipo de Viaje', ['Personal Travel', 'Business Travel'])
-    travel_type = 1 if travel_type == 'Personal Travel' else 0
+    type_of_travel_personal_travel = 1 if travel_type == 'Personal Travel' else 0
 
     travel_class = st.selectbox('Clase de Viaje', ['Eco', 'Eco Plus', 'Business'])
-    eco = 1 if travel_class == 'Eco' else 0
-    eco_plus = 1 if travel_class == 'Eco Plus' else 0
-    business = 1 if travel_class == 'Business' else 0
+    class_eco = 1 if travel_class == 'Eco' else 0
+    class_eco_plus = 1 if travel_class == 'Eco Plus' else 0
+    class_business = 1 if travel_class == 'Business' else 0
 
     # Datos de entrada para la API
     input_data = {
@@ -90,12 +90,12 @@ if page == "Formulario":
         'cleanliness': cleanliness,
         'departure_delay': departure_delay,
         'arrival_delay': arrival_delay,
-        'gender': gender,
-        'customer_type': customer_type,
-        'travel_type': travel_type,
-        'eco': eco,
-        'eco_plus': eco_plus,
-        'business': business
+        'gender_male': gender_male,
+        'customer_type_disloyal_customer': customer_type_disloyal_customer,
+        'type_of_travel_personal_travel': type_of_travel_personal_travel,
+        'class_eco': class_eco,
+        'class_eco_plus': class_eco_plus,
+        'class_business': class_business
     }
 
     satisfaction_satisfied = None
