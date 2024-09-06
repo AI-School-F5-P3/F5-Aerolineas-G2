@@ -194,6 +194,3 @@ El modelo muestra un rendimiento excepcional con:
 - Considerar técnicas para prevenir el sobreajuste si es necesario.
 - Explorar el despliegue del modelo en un entorno de producción.
 
-## Contacto
-
-Para preguntas o sugerencias, contacta a [Tu Nombre/Equipo] en [tu@email.com].
