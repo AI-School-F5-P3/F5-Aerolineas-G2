@@ -6,7 +6,7 @@ from utils import data_access
 from database import save_to_db
 
 # URL de la API
-API_URL = "<http://localhost:8000/predict/>"
+API_URL = "http://localhost:8000/predict/"
 
 # Función para iniciar la API
 def start_api():
