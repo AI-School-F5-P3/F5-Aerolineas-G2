@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from models.model import load_model, predict
+from models.model import load_model
+import numpy as np
 
 # Cargar el modelo al iniciar la API
 model = load_model('models/random_forest_proo.pkl')
@@ -25,11 +26,12 @@ class InputData(BaseModel):
     cleanliness: int
     departure_delay: int
     arrival_delay: int
-    gender_male: int
-    customer_type_disloyal_customer: int
-    type_of_travel_personal_travel: int
-    class_eco: int
-    class_eco_plus: int
+    gender: int
+    customer_type: int
+    travel_type: int
+    eco: int
+    eco_plus: int
+    business: int
 
 # Inicializar la API
 app = FastAPI()
@@ -50,11 +52,15 @@ def predict_satisfaction(data: InputData):
         data.seat_comfort, data.inflight_entertainment, data.on_board_service,
         data.leg_room_service, data.baggage_handling, data.checkin_service,
         data.inflight_service, data.cleanliness, data.departure_delay,
-        data.arrival_delay, data.gender_male, data.customer_type_disloyal_customer,
-        data.type_of_travel_personal_travel, data.class_eco, data.class_eco_plus
+        data.arrival_delay, data.gender, data.customer_type, data.travel_type,
+        data.eco, data.eco_plus, data.business
     ]
+    
+    # Convertir input_data en un array numpy
+    input_array = np.array(input_data).reshape(1, -1)
 
-    # Hacer la predicción usando la función del modelo
-    satisfaction = predict(model, input_data)
+    # Realizar la predicción con el modelo
+    satisfaction = model.predict(input_array)
 
-    return {"satisfaction": "Satisfecho" if satisfaction == 1 else "No Satisfecho/Neutral"}
+    # Retornar el resultado de la predicción
+    return {"satisfaction": "Satisfecho" if satisfaction[0] == 1 else "No Satisfecho/Neutral"}
