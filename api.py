@@ -25,12 +25,11 @@ class InputData(BaseModel):
     cleanliness: int
     departure_delay: int
     arrival_delay: int
-    gender: int
-    customer_type: int
-    travel_type: int
-    eco: int
-    eco_plus: int
-    business: int
+    gender_male: int
+    customer_type_disloyal_customer: int
+    type_of_travel_personal_travel: int
+    class_eco: int
+    class_eco_plus: int
 
 # Inicializar la API
 app = FastAPI()
@@ -51,11 +50,11 @@ def predict_satisfaction(data: InputData):
         data.seat_comfort, data.inflight_entertainment, data.on_board_service,
         data.leg_room_service, data.baggage_handling, data.checkin_service,
         data.inflight_service, data.cleanliness, data.departure_delay,
-        data.arrival_delay, data.gender, data.customer_type, data.travel_type,
-        data.eco, data.eco_plus, data.business
+        data.arrival_delay, data.gender_male, data.customer_type_disloyal_customer,
+        data.type_of_travel_personal_travel, data.class_eco, data.class_eco_plus
     ]
 
-    # Hacer la predicción
+    # Hacer la predicción usando la función del modelo
     satisfaction = predict(model, input_data)
 
     return {"satisfaction": "Satisfecho" if satisfaction == 1 else "No Satisfecho/Neutral"}
