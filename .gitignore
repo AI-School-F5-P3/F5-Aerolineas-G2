@@ -1,4 +1,4 @@
 # Ignorar entorno virtual
 venv/
-
+.env
 airline_satisfaction.csv

@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, roc_curve, auc
+from sklearn.preprocessing import LabelEncoder
 import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib
@@ -15,6 +16,21 @@ def load_model(file_path):
 def load_data(file_path):
     """Carga los datos desde un archivo CSV."""
     return pd.read_csv(file_path)
+
+def preprocess_data(df):
+    """Preprocesa los datos, codificando variables categóricas."""
+    le = LabelEncoder()
+    
+    # Codificar 'age_group' si existe
+    if 'age_group' in df.columns:
+        df['age_group'] = le.fit_transform(df['age_group'])
+    
+    # Codificar otras variables categóricas si es necesario
+    categorical_columns = df.select_dtypes(include=['object']).columns
+    for col in categorical_columns:
+        df[col] = le.fit_transform(df[col])
+    
+    return df
 
 def evaluate_model(model, X, y):
     """Evalúa el modelo y devuelve métricas de rendimiento."""
@@ -75,7 +91,7 @@ if __name__ == "__main__":
     # Definir rutas de archivos
     script_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(os.path.dirname(script_dir))
-    data_path = os.path.join(project_root, "data", "processed", "cleaned_airlines_data.csv")
+    data_path = os.path.join(project_root, "data", "processed", "featured_airlines_data.csv")
     model_path = os.path.join(project_root, "models", "trained_model.pkl")
     reports_dir = os.path.join(project_root, "reports")
     
@@ -85,6 +101,11 @@ if __name__ == "__main__":
     # Cargar datos y modelo
     print(f"Cargando datos desde {data_path}")
     df = load_data(data_path)
+    
+    # Preprocesar datos
+    print("Preprocesando datos...")
+    df = preprocess_data(df)
+    
     X = df.drop('satisfaction', axis=1)
     y = df['satisfaction']
     

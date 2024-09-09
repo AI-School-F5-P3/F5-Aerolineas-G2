@@ -11,21 +11,34 @@ def create_total_rating(df):
                       'Online boarding', 'Seat comfort', 'Inflight entertainment',
                       'On-board service', 'Leg room service', 'Baggage handling',
                       'Checkin service', 'Inflight service', 'Cleanliness']
-    df['total_rating'] = df[rating_columns].sum(axis=1)
+    
+    # Usar solo las columnas que existen en el DataFrame
+    existing_columns = [col for col in rating_columns if col in df.columns]
+    
+    if existing_columns:
+        df['total_rating'] = df[existing_columns].sum(axis=1)
+    else:
+        df['total_rating'] = 0  # O cualquier otro valor predeterminado
     return df
 
 def create_total_delay(df):
     """
     Crea una característica que suma el retraso de salida y llegada.
     """
-    df['total_delay'] = df['Departure Delay in Minutes'] + df['Arrival Delay in Minutes']
+    if 'Departure Delay in Minutes' in df.columns and 'Arrival Delay in Minutes' in df.columns:
+        df['total_delay'] = df['Departure Delay in Minutes'] + df['Arrival Delay in Minutes']
+    else:
+        df['total_delay'] = 0  # O cualquier otro valor predeterminado
     return df
 
 def bin_age(df):
     """
     Crea categorías de edad.
     """
-    df['age_group'] = pd.cut(df['Age'], bins=[0, 18, 35, 55, 100], labels=['0-18', '19-35', '36-55', '55+'])
+    if 'Age' in df.columns:
+        df['age_group'] = pd.cut(df['Age'], bins=[0, 18, 35, 55, 100], labels=['0-18', '19-35', '36-55', '55+'])
+    else:
+        df['age_group'] = 'Unknown'  # O cualquier otro valor predeterminado
     return df
 
 def engineer_features(df):

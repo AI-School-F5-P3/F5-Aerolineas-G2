@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split, cross_val_score, RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+from sklearn.preprocessing import LabelEncoder
 from scipy.stats import randint
 import joblib
 import os
@@ -12,6 +13,21 @@ from plotly.subplots import make_subplots
 def load_data(file_path):
     """Carga los datos desde un archivo CSV."""
     return pd.read_csv(file_path)
+
+def preprocess_data(df):
+    """Preprocesa los datos, codificando variables categóricas."""
+    le = LabelEncoder()
+    
+    # Codificar 'age_group' si existe
+    if 'age_group' in df.columns:
+        df['age_group'] = le.fit_transform(df['age_group'])
+    
+    # Codificar otras variables categóricas si es necesario
+    categorical_columns = df.select_dtypes(include=['object']).columns
+    for col in categorical_columns:
+        df[col] = le.fit_transform(df[col])
+    
+    return df
 
 def split_data(X, y, test_size=0.2, random_state=42):
     """Divide los datos en conjuntos de entrenamiento y prueba."""
@@ -127,12 +143,16 @@ if __name__ == "__main__":
     # Definir rutas de archivos
     script_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(os.path.dirname(script_dir))
-    data_path = os.path.join(project_root, "data", "processed", "cleaned_airlines_data.csv")
+    data_path = os.path.join(project_root, "data", "processed", "featured_airlines_data.csv")
     model_path = os.path.join(project_root, "models", "trained_model.pkl")
     
     # Cargar datos
     print(f"Cargando datos desde {data_path}")
     df = load_data(data_path)
+    
+    # Preprocesar datos
+    print("Preprocesando datos...")
+    df = preprocess_data(df)
     
     # Dividir datos en características y etiqueta
     X = df.drop('satisfaction', axis=1)
