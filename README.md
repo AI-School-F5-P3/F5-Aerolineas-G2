@@ -194,3 +194,80 @@ El modelo muestra un rendimiento excepcional con:
 - Considerar técnicas para prevenir el sobreajuste si es necesario.
 - Explorar el despliegue del modelo en un entorno de producción.
 
+
+## Aplicación Streamlit
+
+La aplicación Streamlit proporciona una interfaz de usuario interactiva para realizar predicciones de satisfacción de clientes en tiempo real. Esta aplicación permite a los usuarios ingresar datos de clientes, obtener predicciones instantáneas y almacenar esta información para futuros análisis y mejoras del modelo.
+
+### Estructura de la Aplicación
+
+La aplicación se encuentra en la carpeta `app/` y consta de tres archivos principales:
+
+```
+app/
+├── main.py
+├── database.py
+└── utils.py
+```
+
+### Descripción de los Archivos
+
+#### `main.py`
+
+Este es el archivo principal de la aplicación Streamlit. Sus funciones principales son:
+
+- Crear la interfaz de usuario con formularios para la entrada de datos del cliente.
+- Cargar el modelo entrenado.
+- Preprocesar los datos ingresados por el usuario.
+- Realizar predicciones utilizando el modelo cargado.
+- Mostrar los resultados de la predicción al usuario.
+- Almacenar los datos y la predicción en la base de datos.
+
+#### `database.py`
+
+Este archivo maneja todas las operaciones relacionadas con la base de datos. Sus funciones principales incluyen:
+
+- Establecer la conexión con la base de datos PostgreSQL.
+- Crear la tabla necesaria para almacenar las predicciones, si no existe.
+- Insertar nuevas predicciones en la base de datos.
+- Manejar errores relacionados con la base de datos.
+
+#### `utils.py`
+
+Este archivo contiene funciones de utilidad que son utilizadas por `main.py`. Sus principales funciones son:
+
+- Cargar el modelo entrenado desde el archivo.
+- Realizar predicciones utilizando el modelo cargado.
+- Manejar errores relacionados con la carga del modelo y las predicciones.
+
+### Cómo Ejecutar la Aplicación
+
+Para ejecutar la aplicación Streamlit, sigue estos pasos:
+
+1. Asegúrate de que todas las dependencias estén instaladas:
+   ```
+   pip install -r requirements.txt
+   ```
+
+2. Desde el directorio raíz del proyecto, ejecuta:
+   ```
+   streamlit run app/main.py
+   ```
+
+3. Abre tu navegador web y ve a la URL local que se muestra en la terminal (generalmente http://localhost:8501).
+
+### Funcionalidades de la Aplicación
+
+- **Entrada de Datos**: Los usuarios pueden ingresar información detallada sobre la experiencia de vuelo de un cliente, incluyendo factores como la clase de vuelo, servicios a bordo, retrasos, etc.
+
+- **Predicción en Tiempo Real**: Una vez ingresados los datos, la aplicación utiliza el modelo entrenado para predecir si el cliente estará satisfecho o no.
+
+- **Visualización de Resultados**: La predicción se muestra claramente, indicando la probabilidad de satisfacción del cliente.
+
+- **Almacenamiento de Datos**: Cada predicción y los datos asociados se almacenan en una base de datos PostgreSQL, permitiendo análisis futuros y mejoras continuas del modelo.
+
+### Beneficios
+
+- **Uso Práctico del Modelo**: Permite a F5 Airlines utilizar el modelo de predicción en un entorno operativo real.
+- **Recopilación Continua de Datos**: Facilita la recolección de nuevos datos para futuras iteraciones y mejoras del modelo.
+- **Interfaz Amigable**: Proporciona una forma fácil y accesible para que el personal de F5 Airlines realice predicciones sin necesidad de conocimientos técnicos avanzados.
