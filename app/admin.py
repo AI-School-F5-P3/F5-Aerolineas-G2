@@ -73,17 +73,58 @@ def load_page():
 
     # Crear menú de navegación
     st.sidebar.title("Menú de Administración")
-    option = st.sidebar.selectbox("Selecciona una opción", ["Visión General", "Comparaciones", "Estadísticas", "Gráficos"])
+    option = st.sidebar.selectbox("Selecciona una opción", [
+        "Resumen General", 
+        "Análisis por Segmento", 
+        "Comparaciones de Predicción", 
+        "Distribución de Variables"
+    ])
 
-    if option == "Visión General":
+    if option == "Resumen General":
         st.subheader("Datos de Satisfacción del Cliente")
         if not df.empty:
             st.dataframe(df)
+            st.write(f"Número total de registros: {len(df)}")
+            st.write(f"Promedio de edad: {df['age'].mean():.2f}")
+            st.write(f"Promedio de retraso de salida: {df['departure_delay'].mean():.2f} minutos")
+            st.write(f"Promedio de retraso de llegada: {df['arrival_delay'].mean():.2f} minutos")
         else:
             st.write("No hay datos disponibles.")
 
-    elif option == "Comparaciones":
-        st.subheader("Comparativa entre Satisfacción Real, Predicción y Probabilidad")
+    elif option == "Análisis por Segmento":
+        st.subheader("Análisis de Satisfacción por Segmento")
+        if not df.empty:
+            # Análisis por género
+            gender_analysis = df.groupby('gender').agg({
+                'probability': 'mean',
+                'prediction': 'mean'
+            }).reset_index()
+            
+            st.write("Análisis por Género")
+            st.bar_chart(gender_analysis.set_index('gender'))
+            
+            # Análisis por tipo de cliente
+            customer_type_analysis = df.groupby('customer_type').agg({
+                'probability': 'mean',
+                'prediction': 'mean'
+            }).reset_index()
+            
+            st.write("Análisis por Tipo de Cliente")
+            st.bar_chart(customer_type_analysis.set_index('customer_type'))
+            
+            # Análisis por clase de viaje
+            travel_class_analysis = df.groupby('customer_class').agg({
+                'probability': 'mean',
+                'prediction': 'mean'
+            }).reset_index()
+            
+            st.write("Análisis por Clase de Viaje")
+            st.bar_chart(travel_class_analysis.set_index('customer_class'))
+        else:
+            st.write("No hay datos disponibles para análisis de segmento.")
+
+    elif option == "Comparaciones de Predicción":
+        st.subheader("Comparativa entre Predicción y Satisfacción Real")
         if not df.empty:
             # Comparar con la Satisfacción Real
             satisfaction_comparison = df.groupby('real_satisfaction').agg({
@@ -94,36 +135,33 @@ def load_page():
             st.write(satisfaction_comparison)
             st.bar_chart(satisfaction_comparison.set_index('real_satisfaction'))
         else:
-            st.write("No hay datos disponibles para comparaciones.")
+            st.write("No hay datos disponibles para comparaciones de predicción.")
 
-    elif option == "Estadísticas":
-        st.subheader("Estadísticas Generales")
+    elif option == "Distribución de Variables":
+        st.subheader("Distribución de Variables Clave")
         if not df.empty:
-            st.write(f"Número total de registros: {len(df)}")
-            st.write(f"Promedio de edad: {df['age'].mean():.2f}")
-            st.write(f"Promedio de retraso de salida: {df['departure_delay'].mean():.2f} minutos")
-            st.write(f"Promedio de retraso de llegada: {df['arrival_delay'].mean():.2f} minutos")
-        else:
-            st.write("No hay datos disponibles para estadísticas.")
-
-    elif option == "Gráficos":
-        st.subheader("Gráficos de Datos")
-        if not df.empty:
-            # Histograma de la probabilidad de satisfacción
-            st.write("Distribución de la Probabilidad de Satisfacción")
+            # Histograma de edad
+            st.write("Distribución de Edad")
             fig, ax = plt.subplots()
-            sns.histplot(df['probability'], bins=30, kde=True, ax=ax)
-            ax.set_title('Distribución de la Probabilidad de Satisfacción')
+            sns.histplot(df['age'], bins=20, kde=True, ax=ax)
+            ax.set_title('Distribución de Edad')
             st.pyplot(fig)
             
-            # Gráfico de dispersión entre la probabilidad y la predicción
-            st.write("Gráfico de Dispersión: Probabilidad vs Predicción")
+            # Histograma de distancia de vuelo
+            st.write("Distribución de Distancia de Vuelo")
             fig, ax = plt.subplots()
-            sns.scatterplot(x='probability', y='prediction', data=df, ax=ax)
-            ax.set_title('Probabilidad vs Predicción')
+            sns.histplot(df['flight_distance'], bins=20, kde=True, ax=ax)
+            ax.set_title('Distribución de Distancia de Vuelo')
+            st.pyplot(fig)
+            
+            # Gráfico de dispersión: Retraso de salida vs Retraso de llegada
+            st.write("Retraso de Salida vs Retraso de Llegada")
+            fig, ax = plt.subplots()
+            sns.scatterplot(x='departure_delay', y='arrival_delay', data=df, ax=ax)
+            ax.set_title('Retraso de Salida vs Retraso de Llegada')
             st.pyplot(fig)
         else:
-            st.write("No hay datos disponibles para gráficos.")
+            st.write("No hay datos disponibles para la distribución de variables.")
 
 if __name__ == "__main__":
     data_access()
