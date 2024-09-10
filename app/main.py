@@ -55,6 +55,9 @@ def main():
             departure_delay = st.number_input('Retraso en la Salida (minutos)', min_value=0, value=0)
             arrival_delay = st.number_input('Retraso en la Llegada (minutos)', min_value=0, value=0)
 
+        # Añadir el campo de "Satisfacción Real"
+        real_satisfaction = st.selectbox('Satisfacción Real', ['Satisfecho', 'No Satisfecho o Neutral'])
+
         submitted = st.form_submit_button("Predecir Satisfacción")
 
     if submitted:
@@ -84,34 +87,27 @@ def main():
             'Arrival Delay in Minutes': [arrival_delay]
         })
 
-        # Preprocesar los datos
-        try:
-            preprocessed_data = preprocess_data(input_data)
-            
-            # Aplicar ingeniería de características
-            featured_data = engineer_features(preprocessed_data)
+        # Preprocesar y ajustar las características
+        preprocessed_data = preprocess_data(input_data)
+        features = engineer_features(preprocessed_data)
 
-            # Hacer la predicción
-            prediction, probability = make_prediction(model, featured_data)
+        # Realizar la predicción
+        prediction, probability = make_prediction(model, features)
 
-            if prediction is not None and probability is not None:
-                # Mostrar el resultado
-                st.subheader('Resultado de la Predicción:')
-                if prediction[0] == 1:
-                    st.success(f'El cliente está satisfecho con una probabilidad del {probability[0]*100:.2f}%')
-                else:
-                    st.error(f'El cliente está insatisfecho con una probabilidad del {(1-probability[0])*100:.2f}%')
-
-                # Guardar la predicción en la base de datos
-                try:
-                    insert_prediction(input_data, prediction[0], probability[0])
-                    st.info('Los datos y la predicción han sido guardados en la base de datos.')
-                except Exception as e:
-                    st.warning(f'No se pudo guardar la predicción en la base de datos: {str(e)}')
+        # Mostrar el resultado
+        st.subheader('Resultado de la Predicción:')
+        if prediction is not None and probability is not None:
+            if prediction[0] == 1:
+                st.success(f'El cliente está satisfecho con una probabilidad del {probability[0]*100:.2f}%')
             else:
-                st.error('No se pudo realizar la predicción. Por favor, verifica los datos de entrada.')
-        except Exception as e:
-            st.error(f'Ocurrió un error al procesar los datos: {str(e)}')
+                st.error(f'El cliente está insatisfecho con una probabilidad del {(1-probability[0])*100:.2f}%')
+
+            # Guardar la predicción en la base de datos
+            try:
+                insert_prediction(input_data, prediction[0], probability[0], real_satisfaction)  # Pasar la Satisfacción Real
+                st.info('Los datos y la predicción han sido guardados en la base de datos.')
+            except Exception as e:
+                st.warning(f'No se pudo guardar la predicción en la base de datos: {str(e)}')
 
 if __name__ == "__main__":
     main()
