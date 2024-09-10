@@ -1,6 +1,7 @@
 import psycopg2
 import os
 from dotenv import load_dotenv
+import pandas as pd
 
 # Cargar variables de entorno
 load_dotenv()
