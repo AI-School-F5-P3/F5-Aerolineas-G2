@@ -3,3 +3,4 @@ venv/
 .env
 airline_satisfaction.csv
 .pkl
+env/
