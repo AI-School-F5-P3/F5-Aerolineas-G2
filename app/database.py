@@ -63,6 +63,7 @@ def create_table_if_not_exists():
                     arrival_delay INT,
                     prediction BOOLEAN,
                     probability FLOAT,
+                    real_satisfaction VARCHAR(30),    
                     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
@@ -72,7 +73,7 @@ def create_table_if_not_exists():
     finally:
         conn.close()
 
-def insert_prediction(input_data, prediction, probability):
+def insert_prediction(input_data, prediction, probability, real_satisfaction):
     """Inserta una nueva predicción en la base de datos."""
     conn = get_db_connection()
     if conn is None:
@@ -86,8 +87,8 @@ def insert_prediction(input_data, prediction, probability):
                 inflight_wifi_service, departure_arrival_time_convenient, ease_of_online_booking,
                 gate_location, food_and_drink, online_boarding, seat_comfort, inflight_entertainment,
                 on_board_service, leg_room_service, baggage_handling, checkin_service, inflight_service,
-                cleanliness, departure_delay, arrival_delay, prediction, probability)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                cleanliness, departure_delay, arrival_delay, prediction, probability, real_satisfaction)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """, (
                 str(input_data['Gender'].iloc[0]),
                 str(input_data['Customer Type'].iloc[0]),
@@ -112,7 +113,8 @@ def insert_prediction(input_data, prediction, probability):
                 int(input_data['Departure Delay in Minutes'].iloc[0]),
                 int(input_data['Arrival Delay in Minutes'].iloc[0]),
                 bool(prediction),
-                float(probability)
+                float(probability),
+                str(real_satisfaction) #guardar la satisfacción real
             ))
         conn.commit()
     except psycopg2.Error as e:

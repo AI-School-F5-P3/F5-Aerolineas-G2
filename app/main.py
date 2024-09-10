@@ -55,6 +55,7 @@ def main():
             departure_delay = st.number_input('Retraso en la Salida (minutos)', min_value=0, value=0)
             arrival_delay = st.number_input('Retraso en la Llegada (minutos)', min_value=0, value=0)
 
+        real_satisfaction = st.selectbox('Satisfacción Real', ['Satisfecho', 'No satisfecho o neutral'])
         submitted = st.form_submit_button("Predecir Satisfacción")
 
     if submitted:
@@ -104,7 +105,7 @@ def main():
 
                 # Guardar la predicción en la base de datos
                 try:
-                    insert_prediction(input_data, prediction[0], probability[0])
+                    insert_prediction(input_data, prediction[0], probability[0], real_satisfaction)
                     st.info('Los datos y la predicción han sido guardados en la base de datos.')
                 except Exception as e:
                     st.warning(f'No se pudo guardar la predicción en la base de datos: {str(e)}')
