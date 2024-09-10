@@ -4,3 +4,4 @@ venv/
 airline_satisfaction.csv
 .pkl
 env/
+__pycache__/
