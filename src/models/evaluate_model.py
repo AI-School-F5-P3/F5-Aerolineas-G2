@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib
 import os
-import plotly.graph_objs as go
+import plotly.graph_objs as go #python -m pip install plotly
 from plotly.subplots import make_subplots
 
 def load_model(file_path):
