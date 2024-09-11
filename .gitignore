@@ -2,3 +2,5 @@
 venv/
 .env
 airline_satisfaction.csv
+env/
+__pycache__/
