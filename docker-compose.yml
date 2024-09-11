@@ -10,16 +10,22 @@ services:
       - "8501:8501"
     depends_on:
       - db
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=${DB_PORT}
 
   db:
     image: postgres:13
     container_name: ml_db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: f5_airlines
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5433:5433"
+      - "${DB_PORT}:5433"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
