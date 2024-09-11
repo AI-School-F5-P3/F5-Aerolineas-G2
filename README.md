@@ -266,8 +266,4 @@ Para ejecutar la aplicación Streamlit, sigue estos pasos:
 
 - **Almacenamiento de Datos**: Cada predicción y los datos asociados se almacenan en una base de datos PostgreSQL, permitiendo análisis futuros y mejoras continuas del modelo.
 
-### Beneficios
 
-- **Uso Práctico del Modelo**: Permite a F5 Airlines utilizar el modelo de predicción en un entorno operativo real.
-- **Recopilación Continua de Datos**: Facilita la recolección de nuevos datos para futuras iteraciones y mejoras del modelo.
-- **Interfaz Amigable**: Proporciona una forma fácil y accesible para que el personal de F5 Airlines realice predicciones sin necesidad de conocimientos técnicos avanzados.
