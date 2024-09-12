@@ -2,3 +2,4 @@
 venv/
 .env
 airline_satisfaction.csv
+/env
