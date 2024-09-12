@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe de evaluación del modelo</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        h1, h2 { color: #333; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .visualization { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Informe de evaluación del modelo</h1>
+    
+    <h2>Métricas de precisión</h2>
+    <table>
+        <tr><th>Métrica</th><th>Valor</th></tr>
+        <tr><td>Test Accuracy</td><td>0.9617</td></tr>
+        <tr><td>Train Accuracy</td><td>0.9820</td></tr>
+        <tr><td>Overfitting</td><td>0.0203</td></tr>
+        <tr><td>ROC AUC</td><td>0.9938</td></tr>
+    </table>
+
+    <h2>Informe de clasificación</h2>
+    <pre>              precision    recall  f1-score   support
+
+           0       0.95      0.98      0.97     11713
+           1       0.97      0.94      0.96      9068
+
+    accuracy                           0.96     20781
+   macro avg       0.96      0.96      0.96     20781
+weighted avg       0.96      0.96      0.96     20781
+</pre>
+
+    <h2>Matriz de Confusión</h2>
+    <table>
+    
+        <tr>
+        
+            <td>11466</td>
+        
+            <td>247</td>
+        
+        </tr>
+    
+        <tr>
+        
+            <td>549</td>
+        
+            <td>8519</td>
+        
+        </tr>
+    
+    </table>
+
+    <h2>Importancia de Características</h2>
+    <table>
+        <tr><th>Característica</th><th>Importancia</th></tr>
+    
+        <tr><td>Online boarding</td><td>0.1854</td></tr>
+    
+        <tr><td>Inflight wifi service</td><td>0.1531</td></tr>
+    
+        <tr><td>Class</td><td>0.1155</td></tr>
+    
+        <tr><td>Type of Travel</td><td>0.0972</td></tr>
+    
+        <tr><td>total_rating</td><td>0.0568</td></tr>
+    
+        <tr><td>Inflight entertainment</td><td>0.0484</td></tr>
+    
+        <tr><td>Seat comfort</td><td>0.0395</td></tr>
+    
+        <tr><td>Ease of Online booking</td><td>0.0366</td></tr>
+    
+        <tr><td>Customer Type</td><td>0.0361</td></tr>
+    
+        <tr><td>Leg room service</td><td>0.0323</td></tr>
+    
+        <tr><td>Flight Distance</td><td>0.0249</td></tr>
+    
+        <tr><td>On-board service</td><td>0.0216</td></tr>
+    
+        <tr><td>Age</td><td>0.0206</td></tr>
+    
+        <tr><td>Baggage handling</td><td>0.0198</td></tr>
+    
+        <tr><td>Cleanliness</td><td>0.0193</td></tr>
+    
+        <tr><td>Inflight service</td><td>0.0176</td></tr>
+    
+        <tr><td>Checkin service</td><td>0.0169</td></tr>
+    
+        <tr><td>Departure/Arrival time convenient</td><td>0.0130</td></tr>
+    
+        <tr><td>Gate location</td><td>0.0129</td></tr>
+    
+        <tr><td>Food and drink</td><td>0.0076</td></tr>
+    
+        <tr><td>total_delay</td><td>0.0070</td></tr>
+    
+        <tr><td>Arrival Delay in Minutes</td><td>0.0067</td></tr>
+    
+        <tr><td>Departure Delay in Minutes</td><td>0.0051</td></tr>
+    
+        <tr><td>age_group</td><td>0.0039</td></tr>
+    
+        <tr><td>Gender</td><td>0.0022</td></tr>
+    
+    </table>
+
+    <h2>Visualizaciones</h2>
+    <div class="visualization">
+        <h3>Matriz de Confusión</h3>
+        <img src="confusion_matrix.png" alt="Confusion Matrix">
+    </div>
+    <div class="visualization">
+        <h3>Importancia de Característica</h3>
+        <img src="feature_importance.png" alt="Feature Importance">
+    </div>
+    <div class="visualization">
+        <h3>Curva ROC</h3>
+        <iframe src="roc_curve.html" width="100%" height="500px"></iframe>
+    </div>
+</body>
+</html>
