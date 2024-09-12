@@ -4,7 +4,7 @@ venv/
 airline_satisfaction.csv
 myenv
 .env
-
+myenv10
 
 # Byte-compiled / optimized / DLL files
 *__pycache__/
