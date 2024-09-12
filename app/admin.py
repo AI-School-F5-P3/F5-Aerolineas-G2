@@ -1,7 +1,6 @@
 import psycopg2
 import pandas as pd
 import streamlit as st
-import bcrypt
 import matplotlib.pyplot as plt
 import seaborn as sns
 from dotenv import load_dotenv
@@ -9,14 +8,6 @@ import os
 
 # Cargar configuración desde .env
 load_dotenv()
-
-# Obtener el hash de la contraseña
-hashed_password = os.getenv('HASHED_PASSWORD')
-
-def verify_password(password):
-    if hashed_password:
-        return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
-    return False
 
 # Obtener los datos de conexión
 dbname = os.getenv('DB_NAME')
@@ -40,24 +31,8 @@ def get_db_connection():
         return None
 
 def data_access():
-    if 'access_granted' not in st.session_state:
-        st.session_state.access_granted = False
-
     st.title("Acceso a Datos de Satisfacción")
-
-    if not st.session_state.access_granted:
-        # Solicitar la contraseña
-        password = st.text_input("Introduce la contraseña para acceder a los datos:", type="password")
-        
-        if st.button("Acceder"):
-            if verify_password(password):
-                st.session_state.access_granted = True
-                st.success("Acceso concedido.")
-            else:
-                st.error("Contraseña incorrecta.")
-    else:
-        # Mostrar los datos si el acceso es concedido
-        load_page()
+    load_page()
 
 def load_page():
     # Conectar a la base de datos

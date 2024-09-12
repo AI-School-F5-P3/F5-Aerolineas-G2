@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluation Report</title>
+    <title>Informe de evaluación del modelo</title>
     <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
         h1, h2 { color: #333; }
@@ -14,21 +14,21 @@
     </style>
 </head>
 <body>
-    <h1>Model Evaluation Report</h1>
+    <h1>Informe de evaluación del modelo</h1>
     
-    <h2>Accuracy Metrics</h2>
+    <h2>Métricas de precisión</h2>
     <table>
-        <tr><th>Metric</th><th>Value</th></tr>
+        <tr><th>Métrica</th><th>Valor</th></tr>
         <tr><td>Test Accuracy</td><td>{{ "%.4f"|format(accuracy) }}</td></tr>
         <tr><td>Train Accuracy</td><td>{{ "%.4f"|format(train_accuracy) }}</td></tr>
         <tr><td>Overfitting</td><td>{{ "%.4f"|format(overfitting) }}</td></tr>
         <tr><td>ROC AUC</td><td>{{ "%.4f"|format(roc_auc) }}</td></tr>
     </table>
 
-    <h2>Classification Report</h2>
+    <h2>Informe de clasificación</h2>
     <pre>{{ classification_report }}</pre>
 
-    <h2>Confusion Matrix</h2>
+    <h2>Matriz de Confusión</h2>
     <table>
     {% for row in confusion_matrix %}
         <tr>
@@ -39,25 +39,25 @@
     {% endfor %}
     </table>
 
-    <h2>Feature Importance</h2>
+    <h2>Importancia de Características</h2>
     <table>
-        <tr><th>Feature</th><th>Importance</th></tr>
+        <tr><th>Característica</th><th>Importancia</th></tr>
     {% for feature in feature_importance %}
         <tr><td>{{ feature.feature }}</td><td>{{ "%.4f"|format(feature.importance) }}</td></tr>
     {% endfor %}
     </table>
 
-    <h2>Visualizations</h2>
+    <h2>Visualizaciones</h2>
     <div class="visualization">
-        <h3>Confusion Matrix</h3>
+        <h3>Matriz de Confusión</h3>
         <img src="confusion_matrix.png" alt="Confusion Matrix">
     </div>
     <div class="visualization">
-        <h3>Feature Importance</h3>
+        <h3>Importancia de Características</h3>
         <img src="feature_importance.png" alt="Feature Importance">
     </div>
     <div class="visualization">
-        <h3>ROC Curve</h3>
+        <h3>Curva ROC</h3>
         <iframe src="roc_curve.html" width="100%" height="500px"></iframe>
     </div>
 </body>
