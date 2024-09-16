@@ -11,7 +11,7 @@ services:
     depends_on:
       - db
     environment:
-      - DB_HOST=db  # Cambia 'localhost' a 'db'
+      - DB_HOST=${DB_HOST}  # Cambia 'localhost' a 'db'
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
