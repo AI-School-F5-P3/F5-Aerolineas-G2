@@ -4,3 +4,5 @@ venv/
 airline_satisfaction.csv
 /env
 __pycache__/
+*.pyc
+
